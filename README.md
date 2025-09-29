@@ -1,6 +1,6 @@
-🌍CareConnect — AI Charity Assistant
+🌍AidBridge — AI Charity Assistant
 
-CareConnect is a lightweight web app + n8n workflow that helps people donate items, find NGOs/orphanages, discover volunteering roles, and generate simple project plans — all through a friendly chat interface.
+AidBridge is a lightweight web app + n8n workflow that helps people donate items, find NGOs/orphanages, discover volunteering roles, and generate simple project plans — all through a friendly chat interface.
 
 Frontend: static HTML/CSS/JS (no framework)
 
