@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AidBridge — Make an Impact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#0a0f1a; --bg-2:#0b1423;
+    --text:#e7eefc; --muted:#99aecb;
+    --stroke:#1b2a45; --glass:rgba(255,255,255,.05);
+    --accent:#69e0ff; --accent2:#76a2ff;
+    --bubble-me1:#2b6df3; --bubble-me2:#1f54c5;
+    --bubble-bot:#0f182b; --panel:#0b1324; --card:#0c1426;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  
+  body{
+    margin:0; font:16px/1.55 Inter,system-ui,Segoe UI,Roboto,Arial; color:var(--text);
+    overflow:hidden;
+    background:
+      radial-gradient(60rem 60rem at 20% -10%, #13425c55, transparent 60%),
+      radial-gradient(50rem 50rem at 120% 10%, #1a3f7a40, transparent 60%),
+      linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  }
+
+  a{color:inherit; text-decoration:none}
+
+  
+  .app{
+    height:100vh; width:100%;
+    display:grid; grid-template-columns:280px 1fr;
+  }
+
+  .side{
+    display:flex; flex-direction:column; gap:12px;
+    padding:16px; border-right:1px solid var(--stroke);
+    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    backdrop-filter: blur(8px);
+    min-width:240px;
+  }
+  .brand{font-weight:900; letter-spacing:.3px; display:flex; gap:8px; align-items:center}
+  .brand .dot{background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 16px #6ee7ff55}
+  .new-chat{
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    color:#06121b; border:none; border-radius:12px; padding:10px 12px; font-weight:800; cursor:pointer;
+    box-shadow:0 0 24px #6ee7ff33;
+  }
+  .list{
+    border:1px solid var(--stroke); border-radius:12px; background:var(--glass);
+    overflow:auto; min-height:0; flex:1;
+  }
+  .item{
+    padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px;
+    border-bottom:1px solid var(--stroke); cursor:pointer;
+  }
+  .item:last-child{border-bottom:none}
+  .item.active{background:#0b1220}
+  .title{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .trash{
+    color:var(--muted); border:1px solid var(--stroke); background:transparent; border-radius:8px; padding:2px 6px; cursor:pointer;
+  }
+
+  
+  .main{
+    display:grid;
+    grid-template-rows:auto auto 1fr auto; 
+    min-height:0; 
+  }
+
+
+  .top{
+    position:sticky; top:0; z-index:5;
+    backdrop-filter: blur(10px);
+    background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0));
+    border-bottom:1px solid var(--stroke);
+    padding:14px 18px;
+  }
+  .nav{
+    max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;
+  }
+  .menu a{color:var(--muted); margin-left:16px; padding:6px 8px; border-radius:10px}
+  .menu a:hover{background:var(--glass); color:var(--text)}
+
+  
+  .hero{max-width:980px; margin:12px auto 8px; padding:0 16px; text-align:center}
+  .hero h1{margin:0 0 6px; font-size:24px; font-weight:900}
+  .hero p{margin:0; color:var(--muted); font-size:14px}
+
+  
+  .panel-wrap{max-width:980px; margin:0 auto; width:100%; padding:0 16px; min-height:0}
+  .panel{
+    background:var(--card); border:1px solid var(--stroke); border-radius:16px;
+    padding:14px; width:100%; height:100%; min-height:0; 
+    display:flex; flex-direction:column;
+  }
+  .stream{
+    flex:1; min-height:0; overflow-y:auto; padding-right:6px;
+  }
+
+  
+  .row{display:flex; margin:8px 0}
+  .bot{justify-content:flex-start}
+  .me{justify-content:flex-end}
+  .bubble{
+    display:inline-block; max-width:min(720px, 90%);
+    padding:12px 14px; border-radius:14px; border:1px solid var(--stroke);
+    background:var(--bubble-bot); white-space:pre-wrap; word-wrap:break-word;
+  }
+  .me .bubble{background:linear-gradient(180deg,var(--bubble-me1),var(--bubble-me2)); border:none; color:#fff}
+
+  
+  .composer-wrap{
+    backdrop-filter: blur(12px);
+    background:linear-gradient(180deg, transparent, rgba(0,0,0,.45) 40%);
+    padding:12px 0 16px; border-top:1px solid var(--stroke);
+  }
+  .composer{max-width:980px; margin:0 auto; padding:0 16px}
+  .composer .inner{display:flex; gap:10px; background:var(--panel); border:1px solid var(--stroke); border-radius:14px; padding:10px}
+  .composer input{flex:1; background:#0a1223; color:var(--text); border:1px solid #22324f; border-radius:10px; padding:12px 14px}
+  .composer button{min-width:110px; border:none; border-radius:10px; cursor:pointer; font-weight:800; color:#06121b;
+    background:linear-gradient(90deg,var(--accent),var(--accent2)); box-shadow:0 10px 24px #6ee7ff33}
+  .hint{color:var(--muted); font-size:12px; text-align:center; margin-top:6px}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="side">
+    <div class="brand">🌍 Aid<span class="dot">Bridge</span></div>
+    <button id="newChat" class="new-chat">New chat</button>
+    <div id="chatList" class="list"></div>
+  </aside>
+
+  <section class="main">
+    <header class="top">
+      <div class="nav">
+        <div></div>
+        <nav class="menu">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="causes.html">Causes</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="hero">
+      <h1>How do you want to make an impact today?</h1>
+      <p>Donate items, volunteer, or lead a project — the assistant will guide you.</p>
+    </div>
+
+    <main class="panel-wrap" aria-live="polite">
+      <div class="panel">
+        <div id="stream" class="stream"></div>
+      </div>
+    </main>
+
+    <div class="composer-wrap">
+      <div class="composer">
+        <div class="inner">
+          <input id="msg" placeholder="Ask about charities, NGOs, volunteering, or donations…" />
+          <button id="send">Send</button>
+        </div>
+      </div>
+      <div class="hint">Tip: “Donate items in Colombo — school supplies” or “On-site volunteering this weekend”.</div>
+    </div>
+  </section>
+</div>
+
+<script>
+
+const WEBHOOK_URL = "http://localhost:5678/webhook/charity-bot"; 
+
+
+const stream = document.getElementById("stream");
+const input  = document.getElementById("msg");
+const send   = document.getElementById("send");
+const newBtn = document.getElementById("newChat");
+const listEl = document.getElementById("chatList");
+
+
+const LS_KEY = "careconnect.conversations";
+let conversations = loadAll();
+let currentId = null;
+
+
+const uid = () => Math.random().toString(36).slice(2,10);
+const now = () => new Date().toISOString();
+
+function loadAll(){ try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; } catch { return []; } }
+function saveAll(){ localStorage.setItem(LS_KEY, JSON.stringify(conversations)); }
+
+function createConversation(title = "New chat"){
+  const c = { id: uid(), title, ts: now(), messages: [] };
+  conversations.unshift(c);
+  saveAll(); drawList(); openConversation(c.id);
+}
+function deleteConversation(id){
+  const i = conversations.findIndex(c => c.id === id);
+  if (i >= 0) conversations.splice(i,1);
+  saveAll(); drawList();
+  if (currentId === id){
+    if (conversations[0]) openConversation(conversations[0].id);
+    else { currentId = null; stream.innerHTML = ""; greet(); }
+  }
+}
+function drawList(){
+  listEl.innerHTML = "";
+  conversations.forEach(c => {
+    const row = document.createElement("div");
+    row.className = "item" + (c.id === currentId ? " active" : "");
+    const t = document.createElement("div");
+    t.className = "title";
+    t.textContent = c.title;
+    const del = document.createElement("button");
+    del.className = "trash"; del.textContent = "×";
+    del.onclick = e => { e.stopPropagation(); deleteConversation(c.id); };
+    row.onclick = () => openConversation(c.id);
+    row.appendChild(t); row.appendChild(del);
+    listEl.appendChild(row);
+  });
+}
+function setTitleFromFirstUser(id){
+  const c = conversations.find(x => x.id === id);
+  if (!c) return;
+  const first = c.messages.find(m => m.role === "user");
+  if (first){ c.title = first.text.slice(0, 40) || "New chat"; c.ts = now(); saveAll(); drawList(); }
+}
+
+function openConversation(id){
+  currentId = id; drawList();
+  const c = conversations.find(x => x.id === id);
+  stream.innerHTML = "";
+  if (!c){ greet(); return; }
+  c.messages.forEach(m => addBubble(m.role, m.text));
+  if (c.messages.length === 0) greet();
+}
+
+
+function addBubble(role, text){
+  const row = document.createElement("div");
+  row.className = "row " + (role === "user" ? "me" : "bot");
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = text;
+  row.appendChild(bubble);
+  stream.appendChild(row);
+  stream.scrollTop = stream.scrollHeight;   
+}
+function greet(){
+  addBubble("assistant", "Hi 👋 I’m your Charity Assistant. Want to donate items, volunteer, or lead a project?");
+}
+
+
+async function readReply(res){
+  const ct = (res.headers.get("content-type") || "").toLowerCase();
+  try{
+    if (ct.includes("application/json")) return await res.json();
+    const t = await res.text();
+    try { return JSON.parse(t); } catch { return { text: t || "(empty reply)" }; }
+  }catch{ return { text: "Sorry — couldn’t read the server reply." }; }
+}
+
+async function sendMessage(){
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = ""; input.focus();
+
+  if (!currentId) createConversation("New chat");
+  const c = conversations.find(k => k.id === currentId);
+
+  c.messages.push({ role:"user", text }); c.ts = now(); saveAll();
+  addBubble("user", text);
+  setTitleFromFirstUser(currentId);
+
+  try{
+    const res  = await fetch(WEBHOOK_URL, {
+      method:"POST", headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ message: text })
+    });
+    const data = await readReply(res);
+    const reply = data?.text || data?.message?.content || data?.choices?.[0]?.message?.content || "Sorry, no response.";
+    c.messages.push({ role:"assistant", text: reply }); c.ts = now(); saveAll();
+    addBubble("assistant", reply);
+  }catch(e){
+    const msg = "❌ " + (e.message || "Network error");
+    c.messages.push({ role:"assistant", text: msg }); saveAll();
+    addBubble("assistant", msg);
+  }
+}
+
+
+send.addEventListener("click", sendMessage);
+input.addEventListener("keydown", e => { if (e.key === "Enter") sendMessage(); });
+newBtn.addEventListener("click", () => createConversation("New chat"));
+
+
+drawList();
+if (conversations[0]) openConversation(conversations[0].id); else { createConversation("New chat"); }
+</script>
+</body>
+</html>
+

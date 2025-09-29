@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About — AidBridge</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#0a0f1a; --bg-2:#0b1423; --text:#e7eefc; --muted:#9fb4d0; --stroke:#1b2a45; --glass:rgba(255,255,255,.05);
+    --accent:#69e0ff; --accent2:#76a2ff; --card:#0c1426;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font:16px/1.6 Inter,system-ui; color:var(--text);
+    background:
+      radial-gradient(60rem 60rem at 20% -10%, #13425c55, transparent 60%),
+      radial-gradient(50rem 50rem at 120% 10%, #1a3f7a40, transparent 60%),
+      linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  }
+  a{color:inherit; text-decoration:none}
+  .top{position:sticky; top:0; padding:14px 18px; border-bottom:1px solid var(--stroke); backdrop-filter: blur(10px); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0))}
+  .nav{max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center}
+  .brand{font-weight:900} .brand .dot{background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .menu a{color:var(--muted); margin-left:18px; padding:6px 8px; border-radius:10px}
+  .menu a:hover{background:var(--glass)}
+  .wrap{max-width:900px; margin:32px auto; padding:0 16px}
+  .card{background:var(--card); border:1px solid var(--stroke); border-radius:16px; padding:20px; margin-bottom:14px}
+  h1{margin:0 0 10px; font-size:28px}
+  h2{margin:18px 0 8px; font-size:20px}
+  p{margin:0 0 12px; color:var(--text)}
+  ul{margin:8px 0 12px 20px; color:var(--muted)}
+  .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:var(--glass); border:1px solid var(--stroke); margin-right:6px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="nav">
+    <div class="brand">🌍 Aid<span class="dot">Bridge</span></div>
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="causes.html">Causes</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="card">
+    <h1>About AidBridge</h1>
+    <p>AidBridge helps people take action — donate items, volunteer time, or launch small community projects — with guidance from an AI assistant aligned to charities and NGOs.</p>
+  </div>
+
+  <div class="card">
+    <h2>What we do</h2>
+    <ul>
+      <li><strong>Smart suggestions:</strong> practical items to donate based on local needs.</li>
+      <li><strong>Volunteer matching:</strong> roles that fit your skills and schedule.</li>
+      <li><strong>Project blueprints:</strong> step-by-step plans for drives and campaigns.</li>
+      <li><strong>Local partners:</strong> verified charities and children’s homes to collaborate with.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>How it works</h2>
+    <p>Type your question into the assistant on the Home page. The system routes your request to our backend (n8n) which generates clean, focused answers. No financial transactions are handled here — we focus on in-kind giving and volunteering.</p>
+    <div style="margin-top:8px">
+      <span class="pill">No sign-up</span>
+      <span class="pill">Privacy-first</span>
+      <span class="pill">Sri Lanka focus (global friendly)</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Ethics & accuracy</h2>
+    <p>We avoid making up details. Where phone numbers or websites are unknown, we recommend official sources and directories to verify before you act.</p>
+  </div>
+</main>
+</body>
+</html>
